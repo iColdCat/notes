@@ -1191,6 +1191,7 @@ public abstract class AbstractEndpoint<S> {
 
 
     public final void start() throws Exception {
+        log.info(">>>>>>>>>>>>>  Endpoint start......");
         if (bindState == BindState.UNBOUND) {
             bind();
             bindState = BindState.BOUND_ON_START;

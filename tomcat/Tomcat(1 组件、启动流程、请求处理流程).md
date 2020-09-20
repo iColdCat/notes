@@ -197,3 +197,43 @@ ProtocolHandler：coyote协议接口，通过封装Endpoint和Processor，实现
 从启动流程图中以及源码中，可以看出Tomcat的启动过程非常的标准化，统一按照生命周期管理接口Lifecycle的定义进行启动。首先调用init()方法进行组件的逐级初始化操作，然后再调用start()方法进行启动。
 
 每一级的组件除了完成自身的处理外，还要负责调用子组件相应的生命周期管理方法，组件与组件之间是松耦合的，因此如果需要拓展这些组件，只需要通过修改或替换配置文件即可完成。
+
+
+
+#### 1.6 Tomcat处理请求流程
+
+##### 1.6.1 请求流程
+
+Tomcat是用mapper组件来确定每一个请求应该由哪个wrapper里的servlet来处理的。
+
+Mapper组件的功能就是将用户请求的url定位到一个servlet，他的工作原理是：Mapper组件保存了web应用的配置信息，其实就是容器组件与访问路径的映射关系，比如host容器里配置的域名，context容器里配置的web应用路径，以及wrapper容器里servlet映射的路径。
+
+可以说，这些配置信息就是一个多层次的map。
+
+当一个请求到来时，mapper组件通过解析请求url里的域名和路径，再到自己保存的map里去查找，就能定位到一个servlet。**注意：一个请求url最后只会定位到一个wrapper容器，也就是一个servlet**。
+
+![image-20200920114406820](image/image-20200920114406820.png)
+
+具体步骤如下：
+
+- connector组件EndPoint中的Acceptor监听客户端连接并接受Socket
+- 将连接交给线程池Executor处理，开始执行请求响应任务
+- Processor组件读取消息报文，解析请求行、请求体、请求头，封装成request对象
+- Mapper组件根据请求行中的url值和请求头中的host值匹配由哪个host容器、context容器、wrapper容器处理请求
+- CoyoteAdapter组件负责将connector组件和engine容器关联起来，把生成的request对象和响应对象response传递到engine容器中，调用pipeline
+- engine容器的管道开始处理，管道中包含若干个Valve，每个Valve负责处理部分逻辑，执行完Valve之后会执行基础的Valve --StandardEngineValve，负责调用host容器的Pippeline
+- host容器的管道开始处理，流程类似，最后执行context容器的pipeline
+- context容器的管道开始处理，流程类似，最后执行wrapper容器的pipeline
+- wrapper容器的管道开始处理，流程类似，最后执行wrapper容器对应的servlet对象的处理方法
+
+![image-20200920094134211](image/image-20200920094134211.png)
+
+
+
+##### 1.6.2 请求流程源码
+
+在前面所讲的Tomcat整体架构中，我们发现Tomcat中的各个组件各司其职，组件之间松耦合，确保了整体架构的可伸缩性和可扩展性，那么在组件内部，如何增强组件的灵活性和扩展性呢？在Tomcat中，每个container组件采用责任链模式来完成具体的请求处理。
+
+在Tomcat中定义了pipeline和valve两个接口，pipeline用于构建责任链，后者代表责任链上的每个处理器。pipeline中维护了一个基础的valve，它始终位于pipeline的末端（最后执行），封装了具体的请求处理和输出响应的过程。当然我们也可以调用addValve()方法，为pipeline添加其他的valve，后添加的valve位于基础的valve之前，并按照添加顺序执行。pipeline通过获得首个valve来启动整个链路的执行。
+
+![image-20200920140936188](image/image-20200920140936188.png)
