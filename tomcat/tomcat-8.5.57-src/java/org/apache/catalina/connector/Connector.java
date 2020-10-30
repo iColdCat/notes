@@ -1041,7 +1041,7 @@ public class Connector extends LifecycleMBeanBase  {
     @Override
     protected void initInternal() throws LifecycleException {
 
-        log.info(">>>>>>>>>>>>>  Connector init......");
+        System.out.println(">>>>>>>>>>>>>  Connector init......");
 
         super.initInternal();
 
@@ -1089,6 +1089,8 @@ public class Connector extends LifecycleMBeanBase  {
      */
     @Override
     protected void startInternal() throws LifecycleException {
+
+        System.out.println(">>>>>>>>>>>>>  Connector start......");
 
         // Validate settings before starting
         if (getPort() < 0) {

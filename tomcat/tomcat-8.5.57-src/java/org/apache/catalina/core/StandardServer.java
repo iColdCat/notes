@@ -755,6 +755,8 @@ public final class StandardServer extends LifecycleMBeanBase implements Server {
     @Override
     protected void startInternal() throws LifecycleException {
 
+        System.out.println(">>>>>>>>>>>>>  Server start......");
+
         fireLifecycleEvent(CONFIGURE_START_EVENT, null);
         setState(LifecycleState.STARTING);
 
@@ -799,7 +801,7 @@ public final class StandardServer extends LifecycleMBeanBase implements Server {
     @Override
     protected void initInternal() throws LifecycleException {
 
-        log.info(">>>>>>>>>>>>>  Server init......");
+        System.out.println(">>>>>>>>>>>>>  Server init......");
 
         super.initInternal();
 

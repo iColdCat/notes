@@ -412,6 +412,8 @@ public class StandardService extends LifecycleMBeanBase implements Service {
     @Override
     protected void startInternal() throws LifecycleException {
 
+        System.out.println(">>>>>>>>>>>>>  Service start......");
+
         if(log.isInfoEnabled())
             log.info(sm.getString("standardService.start.name", this.name));
         setState(LifecycleState.STARTING);
@@ -528,7 +530,7 @@ public class StandardService extends LifecycleMBeanBase implements Service {
     @Override
     protected void initInternal() throws LifecycleException {
 
-        log.info(">>>>>>>>>>>>>  Service init......");
+        System.out.println(">>>>>>>>>>>>>  Service init......");
 
         super.initInternal();
 
@@ -536,7 +538,7 @@ public class StandardService extends LifecycleMBeanBase implements Service {
             engine.init();
         }
 
-        //连接池
+        // 连接池
         // Initialize any Executors
         for (Executor executor : findExecutors()) {
             if (executor instanceof JmxEnabled) {

@@ -562,6 +562,7 @@ public abstract class AbstractProtocol<S> implements ProtocolHandler,
 
     @Override
     public void init() throws Exception {
+        System.out.println(">>>>>>>>>>>>>  ProtocolHandler init......");
         if (getLog().isInfoEnabled()) {
             getLog().info(sm.getString("abstractProtocolHandler.init", getName()));
         }
@@ -590,6 +591,9 @@ public abstract class AbstractProtocol<S> implements ProtocolHandler,
 
     @Override
     public void start() throws Exception {
+
+        System.out.println(">>>>>>>>>>>>>  ProtocolHandler start......");
+
         if (getLog().isInfoEnabled()) {
             getLog().info(sm.getString("abstractProtocolHandler.start", getName()));
         }

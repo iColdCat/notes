@@ -248,7 +248,7 @@ public final class Bootstrap {
      */
     public void init() throws Exception {
 
-        log.info(">>>>>>>>>>>>>  BootStrap init......");
+        System.out.println(">>>>>>>>>>>>>  BootStrap init......");
 
         initClassLoaders();
 
@@ -284,7 +284,7 @@ public final class Bootstrap {
      */
     private void load(String[] arguments) throws Exception {
 
-        log.info(">>>>>>>>>>>>>  BootStrap load......");
+        System.out.println(">>>>>>>>>>>>>  BootStrap load......");
 
         // Call the load() method
         String methodName = "load";
@@ -340,7 +340,7 @@ public final class Bootstrap {
      * @throws Exception Fatal start error
      */
     public void start() throws Exception {
-        log.info(">>>>>>>>>>>>>  Bootstrap start......");
+        System.out.println(">>>>>>>>>>>>>  Bootstrap start......");
         if (catalinaDaemon == null) {
             init();
         }
@@ -441,7 +441,7 @@ public final class Bootstrap {
      */
     public static void main(String args[]) {
 
-        log.info(">>>>>>>>>>>>>  开始启动Tomcat");
+        System.out.println(">>>>>>>>>>>>>  开始启动Tomcat");
 
         synchronized (daemonLock) {
             if (daemon == null) {

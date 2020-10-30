@@ -530,6 +530,8 @@ public class Catalina {
      */
     public void load() {
 
+        System.out.println(">>>>>>>>>>>>>  Catalina load......");
+
         if (loaded) {
             return;
         }
@@ -658,7 +660,6 @@ public class Catalina {
      */
     public void load(String args[]) {
 
-        log.info(">>>>>>>>>>>>>  Catalina load......");
         try {
             if (arguments(args)) {
                 load();
@@ -673,6 +674,8 @@ public class Catalina {
      * Start a new server instance.
      */
     public void start() {
+
+        System.out.println(">>>>>>>>>>>>>  Catalina start......");
 
         if (getServer() == null) {
             load();

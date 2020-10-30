@@ -106,7 +106,7 @@ public class StandardThreadExecutor extends LifecycleMBeanBase
 
     @Override
     protected void initInternal() throws LifecycleException {
-        log.info(">>>>>>>>>>>>>  Executor init......");
+        System.out.println(">>>>>>>>>>>>>  Executor init......");
         super.initInternal();
     }
 
@@ -120,6 +120,8 @@ public class StandardThreadExecutor extends LifecycleMBeanBase
      */
     @Override
     protected void startInternal() throws LifecycleException {
+
+        System.out.println(">>>>>>>>>>>>>  Executor start......");
 
         taskqueue = new TaskQueue(maxQueueSize);
         TaskThreadFactory tf = new TaskThreadFactory(namePrefix,daemon,getThreadPriority());

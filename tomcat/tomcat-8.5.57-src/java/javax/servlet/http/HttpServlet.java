@@ -616,7 +616,7 @@ public abstract class HttpServlet extends GenericServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
 
-        String method = req.getMethod();
+         String method = req.getMethod();
 
         if (method.equals(METHOD_GET)) {
             long lastModified = getLastModified(req);

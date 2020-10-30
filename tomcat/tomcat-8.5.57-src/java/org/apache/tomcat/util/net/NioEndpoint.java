@@ -213,7 +213,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel> {
      */
     @Override
     public void bind() throws Exception {
-        log.info(">>>>>>>>>>>>>  Endpoint bind......");
+        System.out.println(">>>>>>>>>>>>>  Endpoint bind......");
         if (!getUseInheritedChannel()) {
             serverSock = ServerSocketChannel.open();
             socketProperties.setProperties(serverSock.socket());
@@ -458,7 +458,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel> {
 
         @Override
         public void run() {
-            log.info(">>>>>>>>>>>>>  Nio Socket 绑定端口：" + getPort() + "，接受请求......");
+            System.out.println(">>>>>>>>>>>>>  Nio Socket 绑定端口：" + getPort() + "，接受请求......");
             int errorDelay = 0;
 
             // Loop until we receive a shutdown command
