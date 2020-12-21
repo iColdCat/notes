@@ -57,7 +57,7 @@
     <!--The connectors can use a shared executor, you can define one or more named thread pools-->
 
     <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
-        maxThreads="150" minSpareThreads="4"/>
+        maxThreads="2" minSpareThreads="1"/>
 
 
     <!-- A "Connector" represents an endpoint by which requests are received
@@ -172,122 +172,125 @@
 
 
 
-  <Service name="Catalina1">
+<!--  <Service name="Catalina1">-->
 
-    <!--The connectors can use a shared executor, you can define one or more named thread pools-->
-    <!--
-    <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
-        maxThreads="150" minSpareThreads="4"/>
-    -->
+<!--    &lt;!&ndash;The connectors can use a shared executor, you can define one or more named thread pools&ndash;&gt;-->
+<!--    &lt;!&ndash;-->
+<!--    <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"-->
+<!--        maxThreads="150" minSpareThreads="4"/>-->
+<!--    &ndash;&gt;-->
+
+<!--    <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"-->
+<!--              maxThreads="2" minSpareThreads="1"/>-->
 
 
-    <!-- A "Connector" represents an endpoint by which requests are received
-         and responses are returned. Documentation at :
-         Java HTTP Connector: /docs/config/http.html
-         Java AJP  Connector: /docs/config/ajp.html
-         APR (HTTP/AJP) Connector: /docs/apr.html
-         Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
-    -->
-    <Connector port="8081" protocol="HTTP/1.1"
-               connectionTimeout="20000"
-               redirectPort="8444" />
-    <!-- A "Connector" using the shared thread pool-->
-    <!--
-    <Connector executor="tomcatThreadPool"
-               port="8080" protocol="HTTP/1.1"
-               connectionTimeout="20000"
-               redirectPort="8443" />
-    -->
-    <!-- Define an SSL/TLS HTTP/1.1 Connector on port 8443
-         This connector uses the NIO implementation. The default
-         SSLImplementation will depend on the presence of the APR/native
-         library and the useOpenSSL attribute of the
-         AprLifecycleListener.
-         Either JSSE or OpenSSL style configuration may be used regardless of
-         the SSLImplementation selected. JSSE style configuration is used below.
-    -->
-    <!--
-    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
-               maxThreads="150" SSLEnabled="true">
-        <SSLHostConfig>
-            <Certificate certificateKeystoreFile="conf/localhost-rsa.jks"
-                         type="RSA" />
-        </SSLHostConfig>
-    </Connector>
-    -->
-    <!-- Define an SSL/TLS HTTP/1.1 Connector on port 8443 with HTTP/2
-         This connector uses the APR/native implementation which always uses
-         OpenSSL for TLS.
-         Either JSSE or OpenSSL style configuration may be used. OpenSSL style
-         configuration is used below.
-    -->
-    <!--
-    <Connector port="8443" protocol="org.apache.coyote.http11.Http11AprProtocol"
-               maxThreads="150" SSLEnabled="true" >
-        <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
-        <SSLHostConfig>
-            <Certificate certificateKeyFile="conf/localhost-rsa-key.pem"
-                         certificateFile="conf/localhost-rsa-cert.pem"
-                         certificateChainFile="conf/localhost-rsa-chain.pem"
-                         type="RSA" />
-        </SSLHostConfig>
-    </Connector>
-    -->
+<!--    &lt;!&ndash; A "Connector" represents an endpoint by which requests are received-->
+<!--         and responses are returned. Documentation at :-->
+<!--         Java HTTP Connector: /docs/config/http.html-->
+<!--         Java AJP  Connector: /docs/config/ajp.html-->
+<!--         APR (HTTP/AJP) Connector: /docs/apr.html-->
+<!--         Define a non-SSL/TLS HTTP/1.1 Connector on port 8080-->
+<!--    &ndash;&gt;-->
+<!--    <Connector port="8081" protocol="HTTP/1.1"-->
+<!--               connectionTimeout="20000"-->
+<!--               redirectPort="8444" />-->
+<!--    &lt;!&ndash; A "Connector" using the shared thread pool&ndash;&gt;-->
+<!--    &lt;!&ndash;-->
+<!--    <Connector executor="tomcatThreadPool"-->
+<!--               port="8080" protocol="HTTP/1.1"-->
+<!--               connectionTimeout="20000"-->
+<!--               redirectPort="8443" />-->
+<!--    &ndash;&gt;-->
+<!--    &lt;!&ndash; Define an SSL/TLS HTTP/1.1 Connector on port 8443-->
+<!--         This connector uses the NIO implementation. The default-->
+<!--         SSLImplementation will depend on the presence of the APR/native-->
+<!--         library and the useOpenSSL attribute of the-->
+<!--         AprLifecycleListener.-->
+<!--         Either JSSE or OpenSSL style configuration may be used regardless of-->
+<!--         the SSLImplementation selected. JSSE style configuration is used below.-->
+<!--    &ndash;&gt;-->
+<!--    &lt;!&ndash;-->
+<!--    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"-->
+<!--               maxThreads="150" SSLEnabled="true">-->
+<!--        <SSLHostConfig>-->
+<!--            <Certificate certificateKeystoreFile="conf/localhost-rsa.jks"-->
+<!--                         type="RSA" />-->
+<!--        </SSLHostConfig>-->
+<!--    </Connector>-->
+<!--    &ndash;&gt;-->
+<!--    &lt;!&ndash; Define an SSL/TLS HTTP/1.1 Connector on port 8443 with HTTP/2-->
+<!--         This connector uses the APR/native implementation which always uses-->
+<!--         OpenSSL for TLS.-->
+<!--         Either JSSE or OpenSSL style configuration may be used. OpenSSL style-->
+<!--         configuration is used below.-->
+<!--    &ndash;&gt;-->
+<!--    &lt;!&ndash;-->
+<!--    <Connector port="8443" protocol="org.apache.coyote.http11.Http11AprProtocol"-->
+<!--               maxThreads="150" SSLEnabled="true" >-->
+<!--        <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />-->
+<!--        <SSLHostConfig>-->
+<!--            <Certificate certificateKeyFile="conf/localhost-rsa-key.pem"-->
+<!--                         certificateFile="conf/localhost-rsa-cert.pem"-->
+<!--                         certificateChainFile="conf/localhost-rsa-chain.pem"-->
+<!--                         type="RSA" />-->
+<!--        </SSLHostConfig>-->
+<!--    </Connector>-->
+<!--    &ndash;&gt;-->
 
-    <!-- Define an AJP 1.3 Connector on port 8009 -->
-    <!--
-    <Connector protocol="AJP/1.3"
-               address="::1"
-               port="8009"
-               redirectPort="8443" />
-    -->
+<!--    &lt;!&ndash; Define an AJP 1.3 Connector on port 8009 &ndash;&gt;-->
+<!--    &lt;!&ndash;-->
+<!--    <Connector protocol="AJP/1.3"-->
+<!--               address="::1"-->
+<!--               port="8009"-->
+<!--               redirectPort="8443" />-->
+<!--    &ndash;&gt;-->
 
-    <!-- An Engine represents the entry point (within Catalina) that processes
-         every request.  The Engine implementation for Tomcat stand alone
-         analyzes the HTTP headers included with the request, and passes them
-         on to the appropriate Host (virtual host).
-         Documentation at /docs/config/engine.html -->
+<!--    &lt;!&ndash; An Engine represents the entry point (within Catalina) that processes-->
+<!--         every request.  The Engine implementation for Tomcat stand alone-->
+<!--         analyzes the HTTP headers included with the request, and passes them-->
+<!--         on to the appropriate Host (virtual host).-->
+<!--         Documentation at /docs/config/engine.html &ndash;&gt;-->
 
-    <!-- You should set jvmRoute to support load-balancing via AJP ie :
-    <Engine name="Catalina" defaultHost="localhost" jvmRoute="jvm1">
-    -->
-    <Engine name="Catalina1" defaultHost="localhost">
+<!--    &lt;!&ndash; You should set jvmRoute to support load-balancing via AJP ie :-->
+<!--    <Engine name="Catalina" defaultHost="localhost" jvmRoute="jvm1">-->
+<!--    &ndash;&gt;-->
+<!--    <Engine name="Catalina1" defaultHost="localhost">-->
 
-      <!--For clustering, please take a look at documentation at:
-          /docs/cluster-howto.html  (simple how to)
-          /docs/config/cluster.html (reference documentation) -->
-      <!--
-      <Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster"/>
-      -->
+<!--      &lt;!&ndash;For clustering, please take a look at documentation at:-->
+<!--          /docs/cluster-howto.html  (simple how to)-->
+<!--          /docs/config/cluster.html (reference documentation) &ndash;&gt;-->
+<!--      &lt;!&ndash;-->
+<!--      <Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster"/>-->
+<!--      &ndash;&gt;-->
 
-      <!-- Use the LockOutRealm to prevent attempts to guess user passwords
-           via a brute-force attack -->
-      <Realm className="org.apache.catalina.realm.LockOutRealm">
-        <!-- This Realm uses the UserDatabase configured in the global JNDI
-             resources under the key "UserDatabase".  Any edits
-             that are performed against this UserDatabase are immediately
-             available for use by the Realm.  -->
-        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
-               resourceName="UserDatabase"/>
-      </Realm>
+<!--      &lt;!&ndash; Use the LockOutRealm to prevent attempts to guess user passwords-->
+<!--           via a brute-force attack &ndash;&gt;-->
+<!--      <Realm className="org.apache.catalina.realm.LockOutRealm">-->
+<!--        &lt;!&ndash; This Realm uses the UserDatabase configured in the global JNDI-->
+<!--             resources under the key "UserDatabase".  Any edits-->
+<!--             that are performed against this UserDatabase are immediately-->
+<!--             available for use by the Realm.  &ndash;&gt;-->
+<!--        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"-->
+<!--               resourceName="UserDatabase"/>-->
+<!--      </Realm>-->
 
-      <Host name="localhost"  appBase="webapps2"
-            unpackWARs="true" autoDeploy="true">
+<!--      <Host name="localhost"  appBase="webapps2"-->
+<!--            unpackWARs="true" autoDeploy="true">-->
 
-        <!-- SingleSignOn valve, share authentication between web applications
-             Documentation at: /docs/config/valve.html -->
-        <!--
-        <Valve className="org.apache.catalina.authenticator.SingleSignOn" />
-        -->
+<!--        &lt;!&ndash; SingleSignOn valve, share authentication between web applications-->
+<!--             Documentation at: /docs/config/valve.html &ndash;&gt;-->
+<!--        &lt;!&ndash;-->
+<!--        <Valve className="org.apache.catalina.authenticator.SingleSignOn" />-->
+<!--        &ndash;&gt;-->
 
-        <!-- Access log processes all example.
-             Documentation at: /docs/config/valve.html
-             Note: The pattern used is equivalent to using pattern="common" -->
-        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
-               prefix="localhost_access_log" suffix=".txt"
-               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+<!--        &lt;!&ndash; Access log processes all example.-->
+<!--             Documentation at: /docs/config/valve.html-->
+<!--             Note: The pattern used is equivalent to using pattern="common" &ndash;&gt;-->
+<!--        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"-->
+<!--               prefix="localhost_access_log" suffix=".txt"-->
+<!--               pattern="%h %l %u %t &quot;%r&quot; %s %b" />-->
 
-      </Host>
-    </Engine>
-  </Service>
+<!--      </Host>-->
+<!--    </Engine>-->
+<!--  </Service>-->
 </Server>
